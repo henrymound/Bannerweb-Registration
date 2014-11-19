@@ -12,6 +12,7 @@ def main(st_id, pwd, alt, CRNs, tm):
     Check the soure code for inputing classes and otherwise
     
     """
+    print "Waiting..."
     hours = int(tm[0])
     minutes = int(tm[1])
     
@@ -78,18 +79,16 @@ def main(st_id, pwd, alt, CRNs, tm):
         br.form.find_control(type="text", id = "crn_id"+str(i+1)).value = CRNs[i]
               
     response = br.submit()
-    print response.read()
-    print"GO CHECK BANNERWEB"
-    
+    raw_input("\n*****GO CHECK BANNERWEB*****")
 
 
 
         
 if __name__ == "__main__":
-    print "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome to BannerWeb Registration!"
+    print "\n\t\t----Welcome to BannerWeb Registration!----\n"
     print "This Script is designed to help you register for classes,"
     print "it guaruntees nothing and you must use it at your own risk. "
-    print "This is especially true in the case of bannerweb crashing. "
+    print "\n*This is especially true if Bannerweb crashes* \n"
     print "Program is currently configured for use in term spring 2015 - Good luck!"
     
             
