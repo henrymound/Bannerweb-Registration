@@ -4,7 +4,9 @@ Bannerweb-Registration
 A little script using Python 2.7 and mechanize to insert CRN's into bannerweb
 
 
-To use this script, simply run the program. 
+To use this script, simply run the appropriate batch script. 
+First install batch, then to run it again simply use the run script.
+
 
 It will prompt the user for Student ID and Password
 
