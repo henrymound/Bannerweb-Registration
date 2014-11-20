@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #Author: Joey Button
 #Designed with Middlebury Students in mind
 #and opensource principals in heart
