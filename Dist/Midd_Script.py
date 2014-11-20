@@ -1,3 +1,12 @@
+#Author: Joey Button
+#Designed with Middlebury Students in mind
+#and opensource principals in heart
+#
+#Good Luck with Class Registration!
+#
+#term_to_termcode() taken from danielhtrauner
+#link to his GitHub https://github.com/danielhtrauner
+
 import mechanize
 import cookielib
 import urllib
@@ -6,7 +15,7 @@ import sys
 import datetime
 import time
 
-def main(st_id, pwd, alt, CRNs, tm):
+def main(st_id, pwd, alt, CRNs, tm, term_code):
     """
     Hoping to create a time dependent function, but for now everything is hardcoded, 
     Check the soure code for inputing classes and otherwise
@@ -58,11 +67,9 @@ def main(st_id, pwd, alt, CRNs, tm):
     r = br.open(term_select)#####MUST CHANGE THIS VALUE BEFORE USING CODE
 
     br.select_form(nr=1)
-    
-    if alt == '-none-':
-        br['term_in']=['201520']#####THIS IS THE CODE FOR TESTING(Spring Round 1)
-    else:
-        br['term_in']=['201520']#####CODE FOR REAL CLASSES, don't change (Fall 2014)
+    br['term_in']=[term_code]
+    if alt != '-none-':
+        #####CODE FOR REAL CLASSES, don't change (Fall 2014)
         
         response = br.submit()
         
@@ -70,7 +77,7 @@ def main(st_id, pwd, alt, CRNs, tm):
         br.form['pin'] = alt#Enter Alt pin Here
     
     response = br.submit()  
-
+    
     #MUST USE THESE FOR CLASSES, change the 5 digit numbers to be your CRN's
     ####MUST USE THESE FOR CLASSES, change the 5 digit numbers to be your CRN's
     
@@ -81,15 +88,39 @@ def main(st_id, pwd, alt, CRNs, tm):
     response = br.submit()
     raw_input("\n*****GO CHECK BANNERWEB*****")
 
-
-
+def term_to_termcode(term):
+	"""
+	Translates a human-readable term i.e. "Fall 2010"
+	into the "termcode" parameter that the Middlebury 
+	Course Catalog database URL uses.
+	"""
+	normalized_term = term.strip().lower()
+	season, year = normalized_term.split(' ')[0], normalized_term.split(' ')[1]
+	
+	if season == 'winter' or season == 'jterm' or season == 'j-term':
+		season = '1'
+	elif season == 'spring':
+		season = '2'
+	elif season == 'summer':
+		season = '6'
+	elif season == 'fall':
+		season = '9'
+	else:
+		season = 'UNKNOWN'
+		print 'Error in determining the season of the given term!'
+	if 'practice' in normalized_term:
+		season += '3'
+	else:
+		season += '0'
+	
+	return year + season
         
 if __name__ == "__main__":
     print "\n\t\t----Welcome to BannerWeb Registration!----\n"
     print "This Script is designed to help you register for classes,"
     print "it guaruntees nothing and you must use it at your own risk. "
     print "\n*This is especially true if Bannerweb crashes* \n"
-    print "Program is currently configured for use in term spring 2015 - Good luck!"
+    print "Program last modified for use 11/2014 - Good luck!"
     
             
     ID = raw_input("Please enter your student ID number: ")
@@ -100,6 +131,10 @@ if __name__ == "__main__":
     while len(password)!=6:
         print "\nThe password you put in was not 6 digits long, please try again"
         password = raw_input("Please enter your password: ")
+    termcode = "UNKNOWN"    
+    while(termcode.find("UNKNOWN")!=-1):
+	term = raw_input("Please enter the term you are registering for(eg Spring 2015): ")
+	termcode = term_to_termcode(term)
     
     alt_pin = raw_input("Do you need to use an alternate pin for this registration(y/n)? ").lower()
     while alt_pin!= "y" and alt_pin!="n":
@@ -135,6 +170,7 @@ if __name__ == "__main__":
     print "\n----------------------------------"
     print "Student ID : "+ID
     print "Password: "+password
+    print "Term: "+ term +"\t TermCode("+str(termcode)+")"
     print "Alt pin: "+alt_pin_num
     print "CRN's : "
     for item in CRN_list:
@@ -143,4 +179,4 @@ if __name__ == "__main__":
     
     raw_input("If all of this information is correct, press enter now\nOtherwise, please exit the program and try again")
     
-    main(ID, password, alt_pin_num, CRN_list, tm)
+    main(ID, password, alt_pin_num, CRN_list, tm, termcode)
