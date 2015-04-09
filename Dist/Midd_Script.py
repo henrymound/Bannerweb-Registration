@@ -79,9 +79,7 @@ def main(st_id, pwd, alt, CRNs, tm, term_code):
     
     response = br.submit()  
     
-    #MUST USE THESE FOR CLASSES, change the 5 digit numbers to be your CRN's
-    ####MUST USE THESE FOR CLASSES, change the 5 digit numbers to be your CRN's
-    
+
     br.select_form(nr=1)
     for i in range(len(CRNs)):
         br.form.find_control(type="text", id = "crn_id"+str(i+1)).value = CRNs[i]
