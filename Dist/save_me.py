@@ -79,9 +79,9 @@ def main(test_num):
         return 0
     
 def brute_crack():
-    for i in range(3000):
+    for i in range(9999)):
         
-        worked = main(i+4200)
+        worked = main(i+0000)
         if worked != 0:
             print worked
             break
