@@ -178,6 +178,6 @@ if __name__ == "__main__":
         print "\t"+item
     print "The script will execute at "+tm[0]+" o'clock and "+tm[1]+" minutes"
     
-    raw_input("If all of this information is correct, press enter now\nOtherwise, please exit the program and try again")
+    print "If all of this information is correct, program is waiting for time indicated\nOtherwise, please exit the program and try again"
     
     main(ID, password, alt_pin_num, CRN_list, tm, termcode)

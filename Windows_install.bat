@@ -16,3 +16,4 @@ C:\Python27\Scripts\easy_install.exe mechanize
 C:\Python27\python Midd_Script.py
 
 popd 
+pause
