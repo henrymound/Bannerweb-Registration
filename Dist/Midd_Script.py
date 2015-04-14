@@ -33,59 +33,62 @@ def main(st_id, pwd, alt, CRNs, tm, term_code):
         time.sleep(.01)
     
     
+    for tries in range(3):
+	br = mechanize.Browser()
+	cj = cookielib.LWPCookieJar()
+	br.set_cookiejar(cj)
     
-    br = mechanize.Browser()
-    cj = cookielib.LWPCookieJar()
-    br.set_cookiejar(cj)
-
-    br.set_handle_equiv(True)
-    br.set_handle_gzip(True)
-    br.set_handle_redirect(True)
-    br.set_handle_referer(True)
-    br.set_handle_robots(False)
-
-    br.set_handle_refresh(mechanize._http.HTTPRefreshProcessor(), max_time=1)
-
-
+	br.set_handle_equiv(True)
+	br.set_handle_gzip(True)
+	br.set_handle_redirect(True)
+	br.set_handle_referer(True)
+	br.set_handle_robots(False)
     
-    r= br.open('https://ssb.middlebury.edu/PNTR/twbkwbis.P_WWWLogin?')
-
-    # Select the second (index one) form
-    br.select_form("loginform")
-
-    # User credentials
-    br.form['sid'] = st_id
-    br.form['PIN'] = pwd
-
-    # Login
-    br.submit()
-
-    # Open up term select page
-    term_select = 'https://ssb.middlebury.edu/PNTR/bwskfreg.P_AltPin'
+	br.set_handle_refresh(mechanize._http.HTTPRefreshProcessor(), max_time=1)
     
-    # you can get the rval in other ways, but this will work for testing
-
-    r = br.open(term_select)#####MUST CHANGE THIS VALUE BEFORE USING CODE
-
-    br.select_form(nr=1)
-    br['term_in']=[term_code]
-    if alt != '-none-':
-        #####CODE FOR REAL CLASSES, don't change (Fall 2014)
-        
-        response = br.submit()
-        
-        br.select_form(nr=1)
-        br.form['pin'] = alt#Enter Alt pin Here
     
-    response = br.submit()  
+	
+	r= br.open('https://ssb.middlebury.edu/PNTR/twbkwbis.P_WWWLogin?')
     
-
-    br.select_form(nr=1)
-    for i in range(len(CRNs)):
-        br.form.find_control(type="text", id = "crn_id"+str(i+1)).value = CRNs[i]
-              
-    response = br.submit()
-    raw_input("\n*****GO CHECK BANNERWEB*****")
+	# Select the second (index one) form
+	br.select_form("loginform")
+    
+	# User credentials
+	br.form['sid'] = st_id
+	br.form['PIN'] = pwd
+    
+	# Login
+	br.submit()
+    
+	# Open up term select page
+	term_select = 'https://ssb.middlebury.edu/PNTR/bwskfreg.P_AltPin'
+	
+	# you can get the rval in other ways, but this will work for testing
+    
+	r = br.open(term_select)#####MUST CHANGE THIS VALUE BEFORE USING CODE
+    
+	br.select_form(nr=1)
+	br['term_in']=[term_code]
+	if alt != '-none-':
+	    #####CODE FOR REAL CLASSES, don't change (Fall 2014)
+	    
+	    response = br.submit()
+	    
+	    br.select_form(nr=1)
+	    br.form['pin'] = alt#Enter Alt pin Here
+	
+	response = br.submit()  
+	try:
+	    br.select_form(nr=1)
+	    for i in range(len(CRNs)):
+		br.form.find_control(type="text", id = "crn_id"+str(i+1)).value = CRNs[i]
+		      
+	    response = br.submit()
+	except:
+	    print tries
+	print "check in "+str(3-tries)
+    raw_input("go check bw")
+    
 
 def term_to_termcode(term):
 	"""
