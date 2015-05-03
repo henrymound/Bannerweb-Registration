@@ -7,3 +7,4 @@ pushd %curpath%\Dist
 C:\Python27\python Midd_Script.py
 
 popd
+pause

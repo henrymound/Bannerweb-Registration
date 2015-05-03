@@ -66,19 +66,21 @@ def main(st_id, pwd, alt, CRNs, tm, term_code):
     # you can get the rval in other ways, but this will work for testing
 
     r = br.open(term_select)#####MUST CHANGE THIS VALUE BEFORE USING CODE
+    
 
+    
     br.select_form(nr=1)
     br['term_in']=[term_code]
     if alt != '-none-':
-        #####CODE FOR REAL CLASSES, don't change (Fall 2014)
-        
+
         response = br.submit()
         
         br.select_form(nr=1)
         br.form['pin'] = alt#Enter Alt pin Here
     
-    response = br.submit()  
-    
+    response = br.submit()
+    print response.read()
+    return
     #MUST USE THESE FOR CLASSES, change the 5 digit numbers to be your CRN's
     ####MUST USE THESE FOR CLASSES, change the 5 digit numbers to be your CRN's
     
