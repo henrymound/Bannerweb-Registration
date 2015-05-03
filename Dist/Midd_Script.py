@@ -78,12 +78,18 @@ def main(st_id, pwd, alt, CRNs, tm, term_code):
         br.select_form(nr=1)
         br.form['pin'] = alt#Enter Alt pin Here
     
+<<<<<<< HEAD
     response = br.submit()
     print response.read()
     return
     #MUST USE THESE FOR CLASSES, change the 5 digit numbers to be your CRN's
     ####MUST USE THESE FOR CLASSES, change the 5 digit numbers to be your CRN's
     
+=======
+    response = br.submit()  
+    
+
+>>>>>>> origin/master
     br.select_form(nr=1)
     for i in range(len(CRNs)):
         br.form.find_control(type="text", id = "crn_id"+str(i+1)).value = CRNs[i]
@@ -180,6 +186,6 @@ if __name__ == "__main__":
         print "\t"+item
     print "The script will execute at "+tm[0]+" o'clock and "+tm[1]+" minutes"
     
-    raw_input("If all of this information is correct, press enter now\nOtherwise, please exit the program and try again")
+    print "If all of this information is correct, program is waiting for time indicated\nOtherwise, please exit the program and try again"
     
     main(ID, password, alt_pin_num, CRN_list, tm, termcode)
