@@ -49,7 +49,7 @@ def main(st_id, pwd, alt, CRNs, tm, term_code):
 
 
 
-        r= br.open('https://ssb.middlebury.edu/PNTR/twbkwbis.P_WWWLogin?')
+        r= br.open('https://ssb-prod.ec.middlebury.edu/PNTR/twbkwbis.P_WWWLogin?')
 
         # Select the second (index one) form
         br.select_form("loginform")
@@ -62,7 +62,7 @@ def main(st_id, pwd, alt, CRNs, tm, term_code):
         br.submit()
 
         # Open up term select page
-        term_select = 'https://ssb.middlebury.edu/PNTR/bwskfreg.P_AltPin'
+        term_select = 'https://ssb-prod.ec.middlebury.edu/PNTR/bwskfreg.P_AltPin'
 
         # you can get the rval in other ways, but this will work for testing
 
